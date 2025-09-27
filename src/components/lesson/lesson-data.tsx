@@ -1,25 +1,32 @@
-export enum Languages {
-  Kannada = "Kannada",
-  Marathi = "Marathi",
-  Odia = "Odia",
-}
+export const Languages = {
+  Kannada: "Kannada",
+  Marathi: "Marathi",
+  Odia: "Odia",
+} as const;
+
+export type Languages = (typeof Languages)[keyof typeof Languages];
 
 export type ChoiceQuestion = {
-  id: string
-  type: "multiple"
-  prompt: string
-  options: string[]
-  answer: string
-}
+  id: string;
+  type: "multiple";
+  prompt: string;
+  options: string[];
+  answer: string;
+};
 
 export type Lesson = {
-  id: string
-  title: string
-  xp: number
-  questions: ChoiceQuestion[]
-}
+  id: string;
+  title: string;
+  xp: number;
+  questions: ChoiceQuestion[];
+};
 
-const make = (id: string, title: string, qa: Array<[string, string[], string]>, xp = 10): Lesson => ({
+const make = (
+  id: string,
+  title: string,
+  qa: Array<[string, string[], string]>,
+  xp = 10
+): Lesson => ({
   id,
   title,
   xp,
@@ -30,7 +37,7 @@ const make = (id: string, title: string, qa: Array<[string, string[], string]>, 
     options,
     answer,
   })),
-})
+});
 
 export const lessonsByLang: Record<Languages, Lesson[]> = {
   [Languages.Kannada]: [
@@ -54,6 +61,6 @@ export const lessonsByLang: Record<Languages, Lesson[]> = {
       ['"Yes" in Odia?', ["ହଁ", "ନା", "ନମସ୍କାର"], "ହଁ"],
     ]),
   ],
-}
+};
 
-export { lessonsByLang as default }
+export { lessonsByLang as default };
