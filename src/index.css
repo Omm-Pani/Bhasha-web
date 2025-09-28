@@ -55,9 +55,10 @@
 }
 
 /* Optional dark mode tuned to maintain brand identity */
+/* #37464f */
 .dark {
-  --background: #0f1112;
-  --foreground: #ecedee;
+  --background: #131f24;
+  --foreground: #f1f7fb;
   --card: #101315;
   --card-foreground: #ecedee;
   --popover: #101315;
@@ -73,7 +74,7 @@
   --destructive: #ff6368;
   --destructive-foreground: #0f1112;
 
-  --border: #22272a;
+  --border: #37464f;
   --input: #22272a;
   --ring: #2c7d00;
 

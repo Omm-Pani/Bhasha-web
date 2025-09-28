@@ -119,7 +119,12 @@ export function LessonRunner({
             })}
           </div>
           <div className="flex justify-end">
-            <Button onClick={next} disabled={!selected}>
+            <Button
+              className="font-semibold"
+              variant="secondary"
+              onClick={next}
+              disabled={!selected}
+            >
               Continue
             </Button>
           </div>

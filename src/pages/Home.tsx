@@ -17,7 +17,9 @@ export default function Home() {
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2">
             <div className="h-7 w-7 rounded-lg bg-primary" aria-hidden />
-            <span className="font-bold text-lg">BhashaLingo</span>
+            <span className="font-bold text-2xl text-primary tracking-wide">
+              BHASHA
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <StreakBadge />
@@ -37,7 +39,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="mx-auto grid w-full max-w-5xl gap-6 px-4 py-8 md:grid-cols-2 md:items-center">
+      <section className="mx-auto my-40 grid w-full max-w-5xl gap-6 px-4 md:grid-cols-2 md:items-center">
         <div className="space-y-4">
           <h1 className="text-balance text-3xl font-extrabold md:text-5xl">
             Learn Kannada, Marathi, and Odia the fun way.
@@ -47,15 +49,17 @@ export default function Home() {
             decide if you want to save your progress.
           </p>
           <div className="flex gap-2">
-            <Button onClick={() => navigate("/learn/lang")}>
-              Start instantly
+            <Button
+              className="w-full text-lg p-6 font-semibold tracking-wide leading-28"
+              onClick={() => navigate("/learn/lang")}
+            >
+              GET STARTED
             </Button>
-            <Button variant="secondary">Browse courses</Button>
           </div>
           <AchievementsRow />
         </div>
 
-        <div className="rounded-xl border bg-card p-3">
+        <div className="">
           <QuickStart defaultLanguage={Languages.Kannada} />
         </div>
       </section>
