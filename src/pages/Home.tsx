@@ -39,7 +39,7 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="mx-auto my-40 grid w-full max-w-5xl gap-6 px-4 md:grid-cols-2 md:items-center">
+      <section className="mx-auto my-10 md:my-20 lg:my-40 grid w-full max-w-5xl gap-6 px-4 md:grid-cols-2 md:items-center">
         <div className="space-y-4">
           <h1 className="text-balance text-3xl font-extrabold md:text-5xl">
             Learn Kannada, Marathi, and Odia the fun way.
