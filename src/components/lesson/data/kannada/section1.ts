@@ -1,4 +1,4 @@
-import type { Section, Unit } from "../../types";
+import type { Section } from "../../types";
 import { makeLesson } from "../../../../lib/utils";
 
 export const section1: Section = {

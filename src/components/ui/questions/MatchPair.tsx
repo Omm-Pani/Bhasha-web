@@ -67,7 +67,7 @@ function cx(...classes: (string | boolean | undefined)[]) {
 
 export const MatchPairs: React.FC<MatchPairsProps> = ({
   pairs,
-  title = "Select the matching pairs",
+  // title = "Select the matching pairs",
   shuffleSeed,
   onComplete,
   onAnswerChange,

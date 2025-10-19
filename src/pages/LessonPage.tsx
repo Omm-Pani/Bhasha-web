@@ -1,49 +1,20 @@
-import {
-  cloneElement,
-  isValidElement,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import type {
-  Lesson,
-  ChoiceQuestion,
-  Languages,
-} from "../components/lesson/lesson-data";
+import { cloneElement, isValidElement, useEffect, useState } from "react";
+import type { Lesson, Languages } from "../components/lesson/lesson-data";
 import { Button } from "../components/ui/button";
 import { Card, CardContent } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
-import {
-  CheckCircle2,
-  XCircle,
-  Award,
-  Sparkles,
-  X,
-  Heart,
-  Volume2,
-  Volume,
-  Volume1,
-} from "lucide-react";
+import { Award, Sparkles, X, Heart } from "lucide-react";
 import { recordLessonCompletion } from "../lib/streak";
 import { SaveProgressCTA } from "../components/signup-cta";
 import { ThemedButton } from "../components/ui/ThemedButton";
 
-import LessonHeader from "../components/ui/questions/LessonHeader";
-
-import HearQuestionComp from "../components/ui/questions/AudioMcq";
-import ChatBubbleTail from "../components/ui/ChatBubbleTail";
-import { AudioBubble } from "../components/ui/AudioBubble";
-import WritingQuestionComp from "../components/ui/WritingQuestionComp";
-import FillBlankQuestionComp from "../components/ui/FillBlankQuestionComp";
-import SelectMeaningMcqComp from "../components/ui/questions/SelectMeaningMcqComp";
-import { FillInTheBlank } from "../components/ui/questions/FillInTheBlank";
 import { CreateSentence } from "../components/ui/questions/CreateSentence";
 import { MatchPairs, type Pair } from "../components/ui/questions/MatchPair";
 import PictureQuestionComp from "../components/ui/questions/PictureQuestionComp";
-import { makeLesson } from "../lib/utils";
+
 import { useNavigate } from "react-router-dom";
 import { CreateWord } from "../components/ui/questions/CreateWord";
-import AudioMcq from "../components/ui/questions/AudioMcq";
+
 import { AudioSentence } from "../components/ui/questions/AudioSentence";
 
 const DATA: Pair[] = [

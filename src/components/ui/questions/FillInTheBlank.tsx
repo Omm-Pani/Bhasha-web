@@ -1,5 +1,5 @@
 // FillInTheBlank.tsx
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 type FillInTheBlankProps = {
@@ -12,7 +12,7 @@ type FillInTheBlankProps = {
 };
 
 export const FillInTheBlank: React.FC<FillInTheBlankProps> = ({
-  title = "Fill in the blank",
+  // title = "Fill in the blank",
   promptLeft,
   promptRight,
   options,
@@ -20,7 +20,7 @@ export const FillInTheBlank: React.FC<FillInTheBlankProps> = ({
   onChange,
 }) => {
   const [selected, setSelected] = useState<string | null>(defaultSelected);
-  const labelId = useId();
+  // const labelId = useId();
 
   const pick = (w: string | null) => {
     setSelected(w);
