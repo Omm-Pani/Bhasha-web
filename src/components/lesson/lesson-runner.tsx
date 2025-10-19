@@ -1,5 +1,3 @@
-"use client";
-
 import { useEffect, useMemo, useState } from "react";
 import type { Lesson, ChoiceQuestion, Languages } from "./lesson-data";
 import { Button } from "../../components/ui/button";
@@ -23,6 +21,8 @@ export function LessonRunner({
   const [done, setDone] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
   const [showCTA, setShowCTA] = useState(false);
+
+  console.log("step", step);
 
   const q = useMemo(
     () => lesson.questions[step] as ChoiceQuestion | undefined,

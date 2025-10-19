@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 @import "tailwindcss";
 /* @import "tw-animate-css"; */
 
@@ -60,10 +62,10 @@
   --background: #131f24;
   --foreground: #f1f7fb;
   --card: #101315;
-  --card-foreground: #ecedee;
+  --card-foreground: #f1f7fb;
   --popover: #101315;
   --popover-foreground: #ecedee;
-  --primary: #6fe003; /* slightly brighter for dark */
+  --primary: #58cc02; /* slightly brighter for dark */
   --primary-foreground: #0f1112;
   --secondary: #ffa53a;
   --secondary-foreground: #0f1112;
@@ -86,7 +88,7 @@
 
   --sidebar: #0f1112;
   --sidebar-foreground: #ecedee;
-  --sidebar-primary: #6fe003;
+  --sidebar-primary: #58cc02;
   --sidebar-primary-foreground: #0f1112;
   --sidebar-accent: #25b8ff;
   --sidebar-accent-foreground: #0f1112;
@@ -95,7 +97,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-nunito);
+  --font-sans: "Nunito", "Varela Round", sans-serif;
   --font-mono: var(--font-geist-mono);
 
   --color-background: var(--background);

@@ -51,7 +51,7 @@ export default function Home() {
           <div className="flex gap-2">
             <Button
               className="w-full text-lg p-6 font-semibold tracking-wide leading-28"
-              onClick={() => navigate("/learn/lang")}
+              onClick={() => navigate("/select-language")}
             >
               GET STARTED
             </Button>

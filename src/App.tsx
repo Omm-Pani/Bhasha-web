@@ -1,12 +1,29 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home"; // You'll create this component
-import LearnPage from "./pages/LearnPage"; // You'll create this component
+import DashBoard from "./pages/Dashboard";
+import SelectLanguage from "./pages/SelectLanguage";
+import { useGameStore } from "./store/useGameStore";
+import lessonsByLang from "./components/lesson/lesson-data";
+import { LessonPage } from "./pages/LessonPage";
 
 function App() {
+  const language = useGameStore((state) => state.language) || "Kannada";
+
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/learn/:lang" element={<LearnPage />} />
+      <Route path="/select-language" element={<SelectLanguage />}></Route>
+      <Route
+        path="/lesson"
+        element={
+          <LessonPage
+            language={language}
+            lesson={lessonsByLang[language][0]}
+            showSignupAfter
+          />
+        }
+      />
+      <Route path="/learn" element={<DashBoard />} />
     </Routes>
   );
 }
