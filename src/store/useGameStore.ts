@@ -39,7 +39,7 @@ type Actions = {
 
 export const useGameStore = create<State & Actions>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       xp: 0,
       streak: 0,
       lastActiveISO: undefined,

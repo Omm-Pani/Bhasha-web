@@ -526,16 +526,13 @@
 // }
 // src/pages/LessonPage.tsx
 // src/pages/LessonPage.tsx
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import type { Languages } from "../components/lesson/lesson-data";
 
-import { Button } from "../components/ui/button";
-import { Card, CardContent } from "../components/ui/card";
 import { Progress } from "../components/ui/progress";
-import { Award, Sparkles, X, Heart } from "lucide-react";
+import { X, Heart } from "lucide-react";
 import { recordLessonCompletion } from "../lib/streak";
-import { SaveProgressCTA } from "../components/signup-cta";
+
 import { ThemedButton } from "../components/ui/ThemedButton";
 
 // Curriculum (data)

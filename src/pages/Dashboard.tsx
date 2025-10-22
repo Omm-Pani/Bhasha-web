@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { shallow } from "zustand/shallow";
 
 import {
   Lock,
-  Star,
   Zap,
   Heart,
   Gem,
@@ -11,13 +9,8 @@ import {
   ArrowLeft,
   BookText,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import {
-  selectButtonProgressPct,
-  selectFirstIncompleteButtonId,
-  selectProgressSummary,
-  useGameStore,
-} from "../store/useGameStore";
+
+import { useGameStore } from "../store/useGameStore";
 import {
   Card,
   CardContent,
@@ -219,117 +212,117 @@ function HeaderCard({ unit, bg }: { unit: 1 | 2; bg: string }) {
   );
 }
 
-function ActiveButton({
-  progress,
-  buttonId,
-}: {
-  progress: number;
-  buttonId: string;
-}) {
-  const navigate = useNavigate();
-  // const circumference = 2 * Math.PI * 42; // 2 * pi * radius
-  // const offset = circumference - (progress / 100) * circumference;
+// function ActiveButton({
+//   progress,
+//   buttonId,
+// }: {
+//   progress: number;
+//   buttonId: string;
+// }) {
+//   const navigate = useNavigate();
+//   // const circumference = 2 * Math.PI * 42; // 2 * pi * radius
+//   // const offset = circumference - (progress / 100) * circumference;
 
-  return (
-    <div className="mt-[67px] mb-0 left-0 relative flex">
-      <div className="relative h-[98px] w-[98px] place-items-center">
-        {/* ALWAYS-VISIBLE TOOLTIP with pure vertical bounce */}
-        <style>{`
-             @keyframes tooltip-bob-y {
-             0%, 100% { transform: translate3d(0, 0, 0); }
-             50%      { transform: translate3d(0, -8px, 0); } /* up-only */
-            }
-      `}</style>
+//   return (
+//     <div className="mt-[67px] mb-0 left-0 relative flex">
+//       <div className="relative h-[98px] w-[98px] place-items-center">
+//         {/* ALWAYS-VISIBLE TOOLTIP with pure vertical bounce */}
+//         <style>{`
+//              @keyframes tooltip-bob-y {
+//              0%, 100% { transform: translate3d(0, 0, 0); }
+//              50%      { transform: translate3d(0, -8px, 0); } /* up-only */
+//             }
+//       `}</style>
 
-        <div
-          className="absolute -top-8 left-1/2 -translate-x-1/2 z-10 select-none"
-          aria-hidden="true"
-        >
-          {/* IMPORTANT: this wrapper must have NO translate-x/rotate/etc classes */}
-          <div
-            className="inline-block will-change-transform transform-gpu"
-            style={{ animation: "tooltip-bob-y 1.6s ease-in-out infinite" }}
-          >
-            <div className="relative rounded-[10px] bg-background border-2 border-border min-w-[80px] text-center shadow-sm">
-              <div className="text-[16px] p-[8.5px] font-bold uppercase tracking-wider text-primary">
-                START
-              </div>
+//         <div
+//           className="absolute -top-8 left-1/2 -translate-x-1/2 z-10 select-none"
+//           aria-hidden="true"
+//         >
+//           {/* IMPORTANT: this wrapper must have NO translate-x/rotate/etc classes */}
+//           <div
+//             className="inline-block will-change-transform transform-gpu"
+//             style={{ animation: "tooltip-bob-y 1.6s ease-in-out infinite" }}
+//           >
+//             <div className="relative rounded-[10px] bg-background border-2 border-border min-w-[80px] text-center shadow-sm">
+//               <div className="text-[16px] p-[8.5px] font-bold uppercase tracking-wider text-primary">
+//                 START
+//               </div>
 
-              {/* Downward diamond caret with lower-side border only */}
-              <div className="absolute left-1/2 -translate-x-1/2 -bottom-[9px] w-[16px] h-[16px]">
-                {/* mask top half so only lower sides show */}
-                <div className="absolute top-0 left-0 w-full h-[8px] bg-background"></div>
-                {/* inner filled diamond with bottom+right borders */}
-                <div className="absolute inset-[2px] border-b-2 border-r-2 border-border rotate-45 bg-background"></div>
-              </div>
-            </div>
-          </div>
-        </div>
+//               {/* Downward diamond caret with lower-side border only */}
+//               <div className="absolute left-1/2 -translate-x-1/2 -bottom-[9px] w-[16px] h-[16px]">
+//                 {/* mask top half so only lower sides show */}
+//                 <div className="absolute top-0 left-0 w-full h-[8px] bg-background"></div>
+//                 {/* inner filled diamond with bottom+right borders */}
+//                 <div className="absolute inset-[2px] border-b-2 border-r-2 border-border rotate-45 bg-background"></div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
 
-        {/* Outer ring */}
-        <svg
-          className="-p-30 h-[98px] w-[98px] scale-y-[.946]"
-          viewBox="0 0 100 100"
-        >
-          <g transform="translate(50, 50) rotate(-90)">
-            <circle
-              cx="0"
-              cy="0"
-              r={46}
-              fill="none"
-              stroke="rgb(55,70,79)"
-              strokeWidth="8"
-            />
-            <circle
-              cx="0"
-              cy="0"
-              r={46}
-              fill="none"
-              stroke="#58cc02"
-              strokeWidth="8"
-              strokeDasharray={2 * Math.PI * 46}
-              strokeDashoffset={(1 - progress / 100) * (2 * Math.PI * 46)}
-              strokeLinecap="round"
-            />
-          </g>
-        </svg>
+//         {/* Outer ring */}
+//         <svg
+//           className="-p-30 h-[98px] w-[98px] scale-y-[.946]"
+//           viewBox="0 0 100 100"
+//         >
+//           <g transform="translate(50, 50) rotate(-90)">
+//             <circle
+//               cx="0"
+//               cy="0"
+//               r={46}
+//               fill="none"
+//               stroke="rgb(55,70,79)"
+//               strokeWidth="8"
+//             />
+//             <circle
+//               cx="0"
+//               cy="0"
+//               r={46}
+//               fill="none"
+//               stroke="#58cc02"
+//               strokeWidth="8"
+//               strokeDasharray={2 * Math.PI * 46}
+//               strokeDashoffset={(1 - progress / 100) * (2 * Math.PI * 46)}
+//               strokeLinecap="round"
+//             />
+//           </g>
+//         </svg>
 
-        {/* Inner button */}
-        <div className="absolute inset-[10px] rounded-full overflow-hidden grid place-items-center">
-          <button
-            onClick={() => navigate(`/lesson/${buttonId}`)}
-            className="cursor-pointer bg-[#58cc02] h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_#58cc02] transition-all duration-50 ease-in-out active:translate-y-1.5 active:transform-gpu active:shadow-none"
-          >
-            <Star
-              fill="white"
-              className="absolute top-[11.5px] left-[14px] h-[34px] w-[42px]"
-            />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+//         {/* Inner button */}
+//         <div className="absolute inset-[10px] rounded-full overflow-hidden grid place-items-center">
+//           <button
+//             onClick={() => navigate(`/lesson/${buttonId}`)}
+//             className="cursor-pointer bg-[#58cc02] h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_#58cc02] transition-all duration-50 ease-in-out active:translate-y-1.5 active:transform-gpu active:shadow-none"
+//           >
+//             <Star
+//               fill="white"
+//               className="absolute top-[11.5px] left-[14px] h-[34px] w-[42px]"
+//             />
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
-const InactiveButton = React.forwardRef<HTMLDivElement, {}>(
-  function InactiveButton(_, ref) {
-    return (
-      <div ref={ref} className="relative flex mt-[-10px] ">
-        <div className="relative h-[98px] w-[98px] place-items-center">
-          <div className="absolute inset-[10px] rounded-full overflow-hidden grid place-items-center">
-            <button className="cursor-pointer bg-[#37464f]  h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_#37464f] transition-transform active:translate-y-[5px] active:shadow-none">
-              <Star
-                fill="#52656d"
-                color="#52656d"
-                className="absolute top-[11.5px] left-[14px] h-[34px] w-[42px]"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-);
+// const InactiveButton = React.forwardRef<HTMLDivElement, {}>(
+//   function InactiveButton(_, ref) {
+//     return (
+//       <div ref={ref} className="relative flex mt-[-10px] ">
+//         <div className="relative h-[98px] w-[98px] place-items-center">
+//           <div className="absolute inset-[10px] rounded-full overflow-hidden grid place-items-center">
+//             <button className="cursor-pointer bg-[#37464f]  h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_#37464f] transition-transform active:translate-y-[5px] active:shadow-none">
+//               <Star
+//                 fill="#52656d"
+//                 color="#52656d"
+//                 className="absolute top-[11.5px] left-[14px] h-[34px] w-[42px]"
+//               />
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// );
 
 // function SkillPath1({
 //   lastNodeRef,

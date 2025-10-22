@@ -2,12 +2,12 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home"; // You'll create this component
 import DashBoard from "./pages/Dashboard";
 import SelectLanguage from "./pages/SelectLanguage";
-import { useGameStore } from "./store/useGameStore";
-import lessonsByLang from "./components/lesson/lesson-data";
+// import { useGameStore } from "./store/useGameStore";
+
 import { LessonPage } from "./pages/LessonPage";
 
 function App() {
-  const language = useGameStore((state) => state.language) || "Kannada";
+  // const language = useGameStore((state) => state.language) || "Kannada";
 
   return (
     <Routes>
