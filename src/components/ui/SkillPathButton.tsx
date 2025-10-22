@@ -91,7 +91,7 @@ export function SkillPathButton({
           <button
             onClick={() => isClickable && navigate(`/lesson/${buttonId}`)}
             disabled={!isClickable}
-            className={`cursor-pointer h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_${bg}] transition-all duration-50 ease-in-out active:translate-y-1.5 active:transform-gpu ${isClickable ? "" : "opacity-60 cursor-not-allowed"}`}
+            className={`cursor-pointer h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_${bg}] transition-all duration-50 ease-in-out active:translate-y-1.5 active:shadow-none active:transform-gpu ${isClickable ? "" : "opacity-60 cursor-not-allowed"}`}
             style={{ backgroundColor: bg }}
             aria-label={buttonId}
           >
