@@ -1,5 +1,18 @@
 // src/components/lesson/types.ts
 
+export type LessonKind =
+  | "Picture"
+  | "CreateSentence"
+  | "CreateWord"
+  | "Audio"
+  | "MatchPairs";
+
+export type LessonDef = {
+  id: string; // e.g. "S1U1B1L1"
+  kind: LessonKind; // which renderer to use
+  props: Record<string, any>; // the props the component will need
+};
+
 // --- Previous Types (Keep as is) ---
 export const Languages = {
   Kannada: "Kannada",

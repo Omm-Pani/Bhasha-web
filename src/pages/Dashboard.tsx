@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { shallow } from "zustand/shallow";
+
 import {
   Lock,
   Star,
@@ -10,7 +12,12 @@ import {
   BookText,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useGameStore } from "../store/useGameStore";
+import {
+  selectButtonProgressPct,
+  selectFirstIncompleteButtonId,
+  selectProgressSummary,
+  useGameStore,
+} from "../store/useGameStore";
 import {
   Card,
   CardContent,
@@ -18,6 +25,8 @@ import {
   CardTitle,
 } from "../components/ui/card";
 import { ThemedButton } from "../components/ui/ThemedButton";
+import { buttonsById } from "../curriculum/buttonsById";
+import { SkillPathButton } from "../components/ui/SkillPathButton";
 
 export default function DashBoard() {
   const language = useGameStore((state) => state.language);
@@ -173,7 +182,7 @@ function CenterColumn() {
 
       <div className="relative flex flex-wrap md:mx-auto md:max-w-[630px]">
         <SkillPath1 lastNodeRef={lastOfPath1Ref} />
-        <SkillPath2 />
+        {/* <SkillPath2 /> */}
       </div>
     </section>
   );
@@ -210,8 +219,16 @@ function HeaderCard({ unit, bg }: { unit: 1 | 2; bg: string }) {
   );
 }
 
-function ActiveButton() {
+function ActiveButton({
+  progress,
+  buttonId,
+}: {
+  progress: number;
+  buttonId: string;
+}) {
   const navigate = useNavigate();
+  // const circumference = 2 * Math.PI * 42; // 2 * pi * radius
+  // const offset = circumference - (progress / 100) * circumference;
 
   return (
     <div className="mt-[67px] mb-0 left-0 relative flex">
@@ -254,26 +271,25 @@ function ActiveButton() {
           className="-p-30 h-[98px] w-[98px] scale-y-[.946]"
           viewBox="0 0 100 100"
         >
-          <defs>
-            <clipPath id="clip-session/ProgressRing35">
-              <path d="M3.061616997868383e-15,-50L2.5717582782094417e-15,-42Z"></path>
-            </clipPath>
-          </defs>
-          <g transform="translate(50, 50)">
-            <path
-              d="M3.061616997868383e-15,-50A50,50,0,1,1,-3.061616997868383e-15,50A50,50,0,1,1,3.061616997868383e-15,-50M-7.715274834628325e-15,-42A42,42,0,1,0,7.715274834628325e-15,42A42,42,0,1,0,-7.715274834628325e-15,-42Z"
-              fill="rgb(55,70,79)"
+          <g transform="translate(50, 50) rotate(-90)">
+            <circle
+              cx="0"
+              cy="0"
+              r={46}
+              fill="none"
+              stroke="rgb(55,70,79)"
+              strokeWidth="8"
             />
             <circle
-              clipPath="url(#clip-session/ProgressRing35)"
-              cx="-3.9949609477190866"
-              cy="-45.82619651494328"
-              fill="rgb(19,31,36)"
-              r="4"
-            />
-            <path
-              d="M3.061616997868383e-15,-50L2.5717582782094417e-15,-42Z"
-              fill="#58cc02"
+              cx="0"
+              cy="0"
+              r={46}
+              fill="none"
+              stroke="#58cc02"
+              strokeWidth="8"
+              strokeDasharray={2 * Math.PI * 46}
+              strokeDashoffset={(1 - progress / 100) * (2 * Math.PI * 46)}
+              strokeLinecap="round"
             />
           </g>
         </svg>
@@ -281,7 +297,7 @@ function ActiveButton() {
         {/* Inner button */}
         <div className="absolute inset-[10px] rounded-full overflow-hidden grid place-items-center">
           <button
-            onClick={() => navigate("/lesson")}
+            onClick={() => navigate(`/lesson/${buttonId}`)}
             className="cursor-pointer bg-[#58cc02] h-[60px] w-[68px] relative z-0 rounded-full -top-1 shadow-[0_7px_0_rgb(0,0,0,0.2),0_7px_0_#58cc02] transition-all duration-50 ease-in-out active:translate-y-1.5 active:transform-gpu active:shadow-none"
           >
             <Star
@@ -315,53 +331,175 @@ const InactiveButton = React.forwardRef<HTMLDivElement, {}>(
   }
 );
 
+// function SkillPath1({
+//   lastNodeRef,
+// }: {
+//   lastNodeRef: React.Ref<HTMLDivElement>;
+// }) {
+//   const lessonsCompleted = useGameStore((state) => state.lessonsCompleted);
+//   const totalLessons = 5;
+//   const progress = (lessonsCompleted / totalLessons) * 100;
+//   return (
+//     <section className="relative w-full pb-24">
+//       <div
+//         className="flex flex-col items-center
+//         [&>*]:transform-gpu [&>*]:will-change-transform
+//         [&>*:nth-child(1)]:translate-x-0
+//         [&>*:nth-child(2)]:translate-x-[-44.884px]
+//         [&>*:nth-child(3)]:translate-x-[-70px]
+//         [&>*:nth-child(4)]:translate-x-[-44.884px]
+//         [&>*:nth-child(5)]:translate-x-0"
+//       >
+//         <ActiveButton progress={progress} />
+//         <InactiveButton />
+//         <InactiveButton />
+//         <InactiveButton />
+//         {/* Track THIS last one */}
+//         <InactiveButton ref={lastNodeRef} />
+//       </div>
+//     </section>
+//   );
+// }
+
+// function SkillPath2() {
+//   return (
+//     <section className="relative w-full pb-24">
+//       <div
+//         className="
+//           flex flex-col items-center
+//           [&>*]:transform-gpu
+//           [&>*]:will-change-transform
+//           [&>*:nth-child(1)]:translate-x-0
+//           [&>*:nth-child(2)]:translate-x-[44.884px]
+//           [&>*:nth-child(3)]:translate-x-[70px]
+//           [&>*:nth-child(4)]:translate-x-[44.884px]
+//           [&>*:nth-child(5)]:translate-x-0
+//         "
+//       >
+//         <ActiveButton />
+//         <InactiveButton />
+//         <InactiveButton />
+//         <InactiveButton />
+//         <InactiveButton />
+//       </div>
+//     </section>
+//   );
+// }
+
+// function SkillPath1({
+//   lastNodeRef,
+// }: {
+//   lastNodeRef: React.Ref<HTMLDivElement>;
+// }) {
+//   const buttonId = "S1U1B1";
+//   const totalLessons = buttonsById[buttonId].lessonIds.length; // 4
+//   const progress = useGameStore(
+//     selectButtonProgressPct(buttonId, totalLessons)
+//   ); // 0/25/50/75/100
+
+//   return (
+//     <section className="relative w-full pb-24">
+//       <div className="flex flex-col items-center ...">
+//         <ActiveButton progress={progress} buttonId={buttonId} />
+//         <InactiveButton />
+//         <InactiveButton />
+//         <InactiveButton />
+//         <InactiveButton ref={lastNodeRef} />
+//       </div>
+//     </section>
+//   );
+// }
+
 function SkillPath1({
   lastNodeRef,
 }: {
   lastNodeRef: React.Ref<HTMLDivElement>;
 }) {
+  // 1) Stable, explicit order (change to whatever you actually have ready)
+  const orderedButtonIds = React.useMemo<string[]>(
+    () => ["S1U1B1", "S1U1B2", "S1U1B3", "S1U1B4", "S1U1B5"],
+    []
+  );
+
+  // 2) Build totals safely and stably
+  const totals = React.useMemo<Record<string, number>>(() => {
+    const map: Record<string, number> = {};
+    for (const id of orderedButtonIds) {
+      const def = buttonsById[id];
+      if (!def) {
+        console.warn(`[SkillPath1] buttonsById is missing "${id}". Skipping.`);
+        continue;
+      }
+      map[id] = Array.isArray(def.lessonIds) ? def.lessonIds.length : 0;
+    }
+    return map;
+  }, [orderedButtonIds]);
+
+  // 3) Filter to only IDs that exist
+  const existingIds = React.useMemo(
+    () => orderedButtonIds.filter((id) => totals[id] != null),
+    [orderedButtonIds, totals]
+  );
+
+  // 4) Subscribe to a single slice only (primitive-ish): buttonProgress
+  const buttonProgress = useGameStore((s) => s.buttonProgress);
+
+  // 5) Derive progress/completed/active from buttonProgress + totals
+  const { progressMap, completedMap, activeId } = React.useMemo(() => {
+    const progressMap: Record<string, number> = {};
+    const completedMap: Record<string, boolean> = {};
+
+    for (const id of existingIds) {
+      const total = Math.max(1, totals[id] ?? 1);
+      const done = buttonProgress[id]?.completedLessonIds.length ?? 0;
+      progressMap[id] = Math.min(100, Math.round((done / total) * 100));
+      completedMap[id] = done >= total;
+    }
+
+    // first incomplete becomes active
+    const firstIncomplete = existingIds.find((id) => !completedMap[id]);
+
+    return { progressMap, completedMap, activeId: firstIncomplete };
+  }, [buttonProgress, existingIds, totals]);
+
+  if (existingIds.length === 0) {
+    return (
+      <section className="relative w-full pb-24">
+        <div className="text-sm text-muted-foreground">
+          No skill buttons defined. Check your buttonsById and ordered list.
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="relative w-full pb-24">
       <div
         className="flex flex-col items-center
-        [&>*]:transform-gpu [&>*]:will-change-transform
-        [&>*:nth-child(1)]:translate-x-0
-        [&>*:nth-child(2)]:translate-x-[-44.884px]
-        [&>*:nth-child(3)]:translate-x-[-70px]
-        [&>*:nth-child(4)]:translate-x-[-44.884px]
-        [&>*:nth-child(5)]:translate-x-0"
+          [&>*]:transform-gpu [&>*]:will-change-transform
+          [&>*:nth-child(1)]:translate-x-0 mt-2
+          [&>*:nth-child(2)]:translate-x-[-44.884px]
+          [&>*:nth-child(3)]:translate-x-[-70px]
+          [&>*:nth-child(4)]:translate-x-[-44.884px]
+          [&>*:nth-child(5)]:translate-x-0"
       >
-        <ActiveButton />
-        <InactiveButton />
-        <InactiveButton />
-        <InactiveButton />
-        {/* Track THIS last one */}
-        <InactiveButton ref={lastNodeRef} />
-      </div>
-    </section>
-  );
-}
+        {existingIds.map((id, idx) => {
+          const active = id === activeId;
+          const completed = completedMap[id] === true;
+          const progress = progressMap[id] ?? 0;
+          const isLast = idx === existingIds.length - 1;
 
-function SkillPath2() {
-  return (
-    <section className="relative w-full pb-24">
-      <div
-        className="
-          flex flex-col items-center
-          [&>*]:transform-gpu
-          [&>*]:will-change-transform
-          [&>*:nth-child(1)]:translate-x-0
-          [&>*:nth-child(2)]:translate-x-[44.884px]
-          [&>*:nth-child(3)]:translate-x-[70px]
-          [&>*:nth-child(4)]:translate-x-[44.884px]
-          [&>*:nth-child(5)]:translate-x-0
-        "
-      >
-        <ActiveButton />
-        <InactiveButton />
-        <InactiveButton />
-        <InactiveButton />
-        <InactiveButton />
+          return (
+            <div key={id} ref={isLast ? (lastNodeRef as any) : undefined}>
+              <SkillPathButton
+                buttonId={id}
+                active={active}
+                completed={completed}
+                progress={progress}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );

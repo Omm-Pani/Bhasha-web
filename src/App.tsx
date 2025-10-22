@@ -13,7 +13,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/select-language" element={<SelectLanguage />}></Route>
-      <Route
+      {/* <Route
         path="/lesson"
         element={
           <LessonPage
@@ -22,7 +22,8 @@ function App() {
             showSignupAfter
           />
         }
-      />
+      /> */}
+      <Route path="/lesson/:buttonId" element={<LessonPage />} />
       <Route path="/learn" element={<DashBoard />} />
     </Routes>
   );

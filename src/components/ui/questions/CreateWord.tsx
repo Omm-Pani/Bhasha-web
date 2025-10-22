@@ -165,7 +165,7 @@ export const CreateWord: React.FC<CreateWordProps> = ({
           <div className="leading-[39px] pt-2 pl-[10px] [@media_(min-width:700px)]:mt-[-48px] pointer-events-none">
             <div className="flex items-center ">
               <div className="self-end flex scale-150 aspect-[118/175] shrink-0 leading-none max-w-[118px] w-[177px]">
-                <video autoPlay loop src="woman.webm" />
+                <video autoPlay loop src="/assets/characters/woman.webm" />
               </div>
               <div className="items-end inline-flex my-3 ml-4 relative">
                 <div className="flex items-center border-2 border-border rounded-[12px] py-[10px] px-[14px]">
